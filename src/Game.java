@@ -33,6 +33,7 @@ public class Game extends GraphicsPane implements ActionListener{
 	private Boolean gameOver = false;
 	public Boolean bossDead = false;
 	Color c = new Color(1f,0f,0f,.2f );
+	public int inputBossEnemyRows = 3;
     
     enemyship enemyShip;
     enemyship bossShip;
@@ -134,16 +135,29 @@ public class Game extends GraphicsPane implements ActionListener{
         		enemies.add(enemyShip);
         	}
         
-        	for(int i = SIZE+100; i < 650; i+=50) {
+        	/*for(int i = SIZE+100; i < 650; i+=50) {
         		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 75, program);
         		enemies.add(enemyShip);
         	}
+        	*/
         	
         } else {
         	for(int i = SIZE; i < 750; i+= 50) {
         		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 120, program);
         		enemies.add(enemyShip);
-        	}	
+        	}
+        	if(inputBossEnemyRows > 1) {
+	        	for(int i = SIZE+100; i < 750; i+= 50) {
+	        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 170, program);
+	        		enemies.add(enemyShip);
+	        	}	
+        	}
+        	if(inputBossEnemyRows > 2) {
+        		for(int i = SIZE+200; i < 650; i+= 50) {
+	        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 220, program);
+	        		enemies.add(enemyShip);
+	        	}	
+        	}
         }
     }
     
