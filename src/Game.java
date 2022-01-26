@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 import acm.graphics.GImage;
 import acm.graphics.GObject;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Game extends GraphicsPane implements ActionListener{
     
@@ -33,7 +35,9 @@ public class Game extends GraphicsPane implements ActionListener{
 	private Boolean gameOver = false;
 	public Boolean bossDead = false;
 	Color c = new Color(1f,0f,0f,.2f );
-	public int inputBossEnemyRows = 3;
+	private int inputBossEnemyRows;
+	private int inputNormalEnemyRows;
+	
     
     enemyship enemyShip;
     enemyship bossShip;
@@ -57,8 +61,26 @@ public class Game extends GraphicsPane implements ActionListener{
         addEnemies();
         makeEnemies();
         moveEnemies();
+        bossDead = false;
+        //makePlayerShip();
+        //
+        File file = new File("/Users/felipe/Downloads/captmidn.txt");
+		Scanner scan = null;
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		scan.nextLine(); // scan next bad line
+		String str = scan.nextLine();
+		inputBossEnemyRows = Integer.parseInt(str);
+		System.out.println("Player entered " + inputBossEnemyRows + " rows of enemies");
+		scan.nextLine();
+        //
         makePlayerShip();
-        timer.start();     
+
+        timer.start();  
     }
     
     private void updateAllBullets() {

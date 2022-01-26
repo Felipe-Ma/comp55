@@ -84,7 +84,9 @@ public class enemyship extends GraphicsProgram {
     
     
     public void makeBoss() {
-        enemy = new GImage("assets/sprites/boss.gif");
+        //enemy = new GImage("assets/sprites/boss.gif");
+        enemy = new GImage("assets/sprites/Creeper-icon.png");
+
         bossHealth = new healthSystem(shipType.BOSSSHIP, 20, false);
         screen.add(enemy); 
         for(int i = 150; i < 650; i += 25) {

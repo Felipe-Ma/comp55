@@ -12,7 +12,7 @@ public class SomePane extends GraphicsPane {
     private GButton winOver;
     private GButton winReturnToMenu;
     public GButton scores;
-    public boolean death = false;
+    public boolean death;
     public int score = 0;
 
     public SomePane(MainApplication app) {
