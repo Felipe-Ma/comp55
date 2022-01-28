@@ -21,7 +21,7 @@ public class PlayerShip {
 	private final static int HEIGHT = 50;
 	private GLabel score = new GLabel ("Score: ", 10, 590);
 	private int bulletMultiplier;
-	private int playerHearts;
+	private int playerHealth;
 
 
 	//Function adds game screen to PlayerShip class
@@ -52,34 +52,38 @@ public class PlayerShip {
 	}
 	
 	//Function creates playerShip and adds it to game screen
-	public void makePlayerShip(int bulletMultiplier, int playerHearts) {
+	public void makePlayerShip(int bulletMultiplier, int playerHealth) {
 		playerShip = new GImage("assets/sprites/UNIT002.gif", x, y);
-		inputPlayerInfo(bulletMultiplier, playerHearts);
 		screen.add(playerShip);
-		playerShipHealth = new healthSystem(shipType.PLAYERSHIP, playerHearts, false);
-		for(int i = 0; i < playerHearts; i++) {
-			int multipler = i*30;
-			hearts.add(new GImage("assets/sprites/heart.png", 770, 570-multipler));
+		inputPlayerInfo(bulletMultiplier, playerHealth);
+		createHealthSystem();
+		createScoreSystem();
+	}
+	private void inputPlayerInfo(int bulletMultiplier, int playerHealth) {
+		this.bulletMultiplier = bulletMultiplier;
+		this.playerHealth = playerHealth;
+	}
+	private void createHealthSystem() {
+		playerShipHealth = new healthSystem(shipType.PLAYERSHIP, getPlayerHealth(), false);
+		for(int i = 0; i < getPlayerHealth(); i++) {
+			int multiplier = i*30;
+			hearts.add(new GImage("assets/sprites/heart.png", 770, 570-multiplier));
 			screen.add(hearts.get(i));
-			
-			playerScore = new scoreSystem(0, 3, 0);
-			score.setLabel("Score: " + playerScore.getScore());
-			score.setColor(Color.WHITE);
-			screen.add(score);
 		}
 	}
-	private void inputPlayerInfo(int bulletMultiplier, int playerHearts) {
-		this.bulletMultiplier = bulletMultiplier;
-		this.playerHearts = playerHearts;
+	private void createScoreSystem() {
+		playerScore = new scoreSystem(0, 3, 0);
+		score.setLabel("Score: " + playerScore.getScore());
+		score.setColor(Color.WHITE);
+		screen.add(score);
 	}
-	
 	public void removeHeart() {
-		//score.setLabel("Score: 1");
 		screen.remove(hearts.get(hearts.size()-1));
 		hearts.remove(hearts.size()-1);
-		//System.out.println(hearts.size());
 	}
-	
+	private int getPlayerHealth() {
+		return this.playerHealth;
+	}
 	public int getPlayerX() {
 		return this.x;
 	}
