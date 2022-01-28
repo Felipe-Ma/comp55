@@ -21,11 +21,12 @@ public class PlayerShip {
 	private final static int HEIGHT = 50;
 	private GLabel score = new GLabel ("Score: ", 10, 590);
 	private int bulletMultiplier;
+	private int playerHearts;
 
 
 	//Function adds game screen to PlayerShip class
 	public PlayerShip(GraphicsProgram screen) {
-		playerShipHealth = new healthSystem(shipType.PLAYERSHIP, 3, false);
+		//playerShipHealth = new healthSystem(shipType.PLAYERSHIP, playerHearts, false);
 		this.screen = screen;
 		bullets = new Bullets();
 	}
@@ -38,7 +39,7 @@ public class PlayerShip {
 	
 	//change speed here
 	public void fireBullet(){
-		bullets.addBullet(new Bullet(x+12,y, -15*bulletMultiplier, 1, true, screen));
+		bullets.addBullet(new Bullet(x+12,y, -15-(bulletMultiplier*4), 1, true, screen));
 	}
 	private void updatePlayerBullet() {
 		for(Bullet b: bullets.bullets) {
@@ -51,54 +52,32 @@ public class PlayerShip {
 	}
 	
 	//Function creates playerShip and adds it to game screen
-	public void makePlayerShip() {
+	public void makePlayerShip(int bulletMultiplier, int playerHearts) {
 		playerShip = new GImage("assets/sprites/UNIT002.gif", x, y);
-		File file = new File("/Users/felipe/Downloads/captmidn.txt");
-		Scanner scan = null;
-		try {
-			scan = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		scan.nextLine(); // scan next bad line
-		scan.nextLine();
-		scan.nextLine();
-		String str = scan.nextLine();
-		bulletMultiplier = Integer.parseInt(str);
-		System.out.println("Player Entered " + bulletMultiplier + " player speed");
+		inputPlayerInfo(bulletMultiplier, playerHearts);
 		screen.add(playerShip);
-		for(int i = 0; i < 3; i++) {
+		playerShipHealth = new healthSystem(shipType.PLAYERSHIP, playerHearts, false);
+		for(int i = 0; i < playerHearts; i++) {
 			int multipler = i*30;
-			hearts.add(new GImage("assets/sprites/heart.png", 770, 500+multipler));
+			hearts.add(new GImage("assets/sprites/heart.png", 770, 570-multipler));
 			screen.add(hearts.get(i));
-			//
-			/*
-			File file = new File("/Users/felipe/Downloads/captmidn.txt");
-			Scanner scan = null;
-			try {
-				scan = new Scanner(file);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			scan.nextLine(); // scan next bad line
-			String str = scan.nextLine();
-			int playerSpeed = Integer.parseInt(str);
-			System.out.println("Player Entered " + playerSpeed + " player speed");
-			*/
-			//
+			
 			playerScore = new scoreSystem(0, 3, 0);
 			score.setLabel("Score: " + playerScore.getScore());
 			score.setColor(Color.WHITE);
 			screen.add(score);
 		}
 	}
+	private void inputPlayerInfo(int bulletMultiplier, int playerHearts) {
+		this.bulletMultiplier = bulletMultiplier;
+		this.playerHearts = playerHearts;
+	}
 	
 	public void removeHeart() {
-		score.setLabel("Score: 1");
-		screen.remove(hearts.get(0));
-		hearts.remove(0);
+		//score.setLabel("Score: 1");
+		screen.remove(hearts.get(hearts.size()-1));
+		hearts.remove(hearts.size()-1);
+		//System.out.println(hearts.size());
 	}
 	
 	public int getPlayerX() {

@@ -37,8 +37,10 @@ public class Game extends GraphicsPane implements ActionListener{
 	Color c = new Color(1f,0f,0f,.2f );
 	private int inputBossEnemyRows;
 	private int inputNormalEnemyRows;
+	private int bulletMultiplier;
+	private int playerHearts;
 	
-    
+    fileReader scanner = new fileReader(); //
     enemyship enemyShip;
     enemyship bossShip;
     PlayerShip playerShip;
@@ -58,30 +60,24 @@ public class Game extends GraphicsPane implements ActionListener{
     
     public void run() {
         program.add(backround);
-        addEnemies();
+        bossDead = false;
+        scanner.run();
+        inputScannerInfo();
+		addEnemies();
         makeEnemies();
         moveEnemies();
-        bossDead = false;
-        //makePlayerShip();
-        //
-        File file = new File("/Users/felipe/Downloads/captmidn.txt");
-		Scanner scan = null;
-		try {
-			scan = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		scan.nextLine(); // scan next bad line
-		String str = scan.nextLine();
-		inputBossEnemyRows = Integer.parseInt(str);
-		System.out.println("Player entered " + inputBossEnemyRows + " rows of enemies");
-		scan.nextLine();
-        //
-        makePlayerShip();
+        makePlayerShip(bulletMultiplier, playerHearts);
 
         timer.start();  
     }
+    private void inputScannerInfo() {
+    	inputNormalEnemyRows = scanner.getNormalLevelRows();
+    	inputBossEnemyRows = scanner.getBossLevelRows();
+    	bulletMultiplier = scanner.getPlayerBulletSpeed();
+    	playerHearts = scanner.getPlayerHealth();
+    	
+    }
+    
     
     private void updateAllBullets() {
             for(enemyship e : enemies) {
@@ -156,12 +152,30 @@ public class Game extends GraphicsPane implements ActionListener{
         		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 25, program);
         		enemies.add(enemyShip);
         	}
-        
-        	/*for(int i = SIZE+100; i < 650; i+=50) {
-        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 75, program);
-        		enemies.add(enemyShip);
+        	if(inputNormalEnemyRows > 1) {
+	        	for(int i = SIZE+100; i < 650; i+=50) {
+	        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 75, program);
+	        		enemies.add(enemyShip);
+	        	}
         	}
-        	*/
+        	if(inputNormalEnemyRows > 2) {
+        		for(int i = SIZE+200; i < 550; i+=50) {
+	        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 125, program);
+	        		enemies.add(enemyShip);
+	        	}
+        	}
+        	if(inputNormalEnemyRows > 3) {
+        		for(int i = SIZE+300; i < 450; i+=50) {
+	        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 175, program);
+	        		enemies.add(enemyShip);
+	        	}
+        	}
+        	if(inputNormalEnemyRows > 4) {
+        		for(int i = SIZE + 350; i < 400; i+=50) {
+        			enemyShip = new enemyship(shipType.ENEMYSHIP, i, 225, program);
+	        		enemies.add(enemyShip);
+        		}
+        	}
         	
         } else {
         	for(int i = SIZE; i < 750; i+= 50) {
@@ -169,13 +183,13 @@ public class Game extends GraphicsPane implements ActionListener{
         		enemies.add(enemyShip);
         	}
         	if(inputBossEnemyRows > 1) {
-	        	for(int i = SIZE+100; i < 750; i+= 50) {
+	        	for(int i = SIZE+100; i < 650; i+= 50) {
 	        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 170, program);
 	        		enemies.add(enemyShip);
 	        	}	
         	}
         	if(inputBossEnemyRows > 2) {
-        		for(int i = SIZE+200; i < 650; i+= 50) {
+        		for(int i = SIZE+200; i < 550; i+= 50) {
 	        		enemyShip = new enemyship(shipType.ENEMYSHIP, i, 220, program);
 	        		enemies.add(enemyShip);
 	        	}	
@@ -258,9 +272,9 @@ public class Game extends GraphicsPane implements ActionListener{
     
 
     //Calls the PlayerShip class to create and add playerShip onto the screen
-    private void makePlayerShip() {
+    private void makePlayerShip(int bulletMultiplier, int playerHearts) {
         playerShip = new PlayerShip(program);
-        playerShip.makePlayerShip();
+        playerShip.makePlayerShip(bulletMultiplier, playerHearts);
     }
     
     public void resetGame() {
