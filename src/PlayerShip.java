@@ -20,13 +20,11 @@ public class PlayerShip {
 	private final static int WIDTH = 50;
 	private final static int HEIGHT = 50;
 	private GLabel score = new GLabel ("Score: ", 10, 590);
-	private int bulletMultiplier;
-	private int playerHealth;
+	private int bulletMultiplier, playerHealth;
 
 
 	//Function adds game screen to PlayerShip class
 	public PlayerShip(GraphicsProgram screen) {
-		//playerShipHealth = new healthSystem(shipType.PLAYERSHIP, playerHearts, false);
 		this.screen = screen;
 		bullets = new Bullets();
 	}
@@ -48,7 +46,6 @@ public class PlayerShip {
 	}
 	private void updatePlayerScore() {
 	        score.setLabel("Score: " + playerScore.getScore());
-	 
 	}
 	
 	//Function creates playerShip and adds it to game screen

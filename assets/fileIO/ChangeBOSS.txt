@@ -1,0 +1,10 @@
+Change Boss Photo
+1) Find a 128x128 png photo
+2) Place photo into assets/sprites folder. 
+3) Go to customizeGame.txt, enter the name of your png! Note: If incorrectly entered name of png, program will fail to load picture!
+
+#Available Sprites
+Creeper-icon.png
+boss.gif
+
+

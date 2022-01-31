@@ -6,14 +6,16 @@ public class fileReader{
 	Scanner scan = null;
 	private int normalLevelRows, bossLevelRows;
 	private int playerBulletSpeed, playerHealth;
+	private String bossPicture;
 	private String str;
 	
 	public void run() {
 		try {
-			File file = new File("/Users/felipe/Downloads/captmidn.txt"); //locate file
+			File file = new File("assets/fileIO/customizeGame.txt"); //locate file
  			Scanner scan = new Scanner(file);
  			scanEnemyInfo(scan);
  			scanPlayerInfo(scan);
+ 			scanBossPicture(scan);
  			checkPlayerHealth();
  			checkPlayerBulletSpeed();
  			printInfo();
@@ -27,10 +29,9 @@ public class fileReader{
 		System.out.println("Boss level Rows: " + getBossLevelRows());
 		System.out.println("Player Bullet Speed: " + getPlayerBulletSpeed());
 		System.out.println("Player Hearts: " + getPlayerHealth());
-
+		System.out.println("Boss PNG: " + getBossPicture());
 
 	}
-
 	private void scanPlayerInfo(Scanner scan) {
 		scan.nextLine();
 		str = scan.nextLine();
@@ -48,8 +49,10 @@ public class fileReader{
 		scan.nextLine();
 		str = scan.nextLine();
 		bossLevelRows = Integer.parseInt(str);
-		
-		
+	}
+	private void scanBossPicture(Scanner scan) {
+		scan.nextLine();
+		bossPicture = scan.nextLine();
 	}
 	public void checkPlayerHealth() {
 		if(playerHealth < 1) {
@@ -78,5 +81,8 @@ public class fileReader{
 	}
 	public int getPlayerHealth() {
 		return this.playerHealth;
+	}
+	public String getBossPicture() {
+		return this.bossPicture;
 	}
 }

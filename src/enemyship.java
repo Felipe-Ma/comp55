@@ -25,6 +25,7 @@ public class enemyship extends GraphicsProgram {
     private ArrayList<GRect> bossHealthDisplay = new ArrayList<GRect>(20);
     private GRect overBossHealth;
     private GLabel nameBossHealth = new GLabel("Boss Health", 370 , 575);
+    //private String bossPNG = "Creeper-icon.png";
     
     //Each EnemyShip has its own coordinates, use x and y to locate it 
     public enemyship(shipType typeShip, int x, int y, GraphicsProgram screen) { //location of the ship
@@ -73,7 +74,7 @@ public class enemyship extends GraphicsProgram {
     
     public void run() {
         rgen = RandomGenerator.getInstance();
-        makeBoss();
+        //makeBoss();
     }
     
     public void makeEnemy() {
@@ -83,9 +84,8 @@ public class enemyship extends GraphicsProgram {
     
     
     
-    public void makeBoss() {
-        //enemy = new GImage("assets/sprites/boss.gif");
-        enemy = new GImage("assets/sprites/Creeper-icon.png");
+    public void makeBoss(String bossPicture) {
+        enemy = new GImage("assets/sprites/" + bossPicture); //CHANGE BOSS PHOTO
 
         bossHealth = new healthSystem(shipType.BOSSSHIP, 20, false);
         screen.add(enemy); 

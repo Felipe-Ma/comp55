@@ -36,6 +36,7 @@ public class Game extends GraphicsPane implements ActionListener{
 	public Boolean bossDead = false;
 	Color c = new Color(1f,0f,0f,.2f );
 	private int inputBossLevelRows, inputNormalLevelRows, playerBulletSpeed, playerHealth;
+	private String bossPicture;
 	
     fileReader scanner = new fileReader(); //
     enemyship enemyShip;
@@ -71,6 +72,7 @@ public class Game extends GraphicsPane implements ActionListener{
     	inputBossLevelRows = scanner.getBossLevelRows();
     	playerBulletSpeed = scanner.getPlayerBulletSpeed();
     	playerHealth = scanner.getPlayerHealth();
+    	bossPicture = scanner.getBossPicture();
     	
     }
     
@@ -221,7 +223,7 @@ public class Game extends GraphicsPane implements ActionListener{
     
     private void addBoss() {
         bossShip = new enemyship(shipType.BOSSSHIP, 20, 50, program);
-        bossShip.makeBoss();
+        bossShip.makeBoss(bossPicture);
     }
     
     private void moveBoss() {
