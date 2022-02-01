@@ -252,6 +252,7 @@ public class Game extends GraphicsPane implements ActionListener{
     	if (obj == pauseButton) {
   		  program.remove(pauseButton);
   		  JukeBox.PLAY(unpauseGame);
+  		  JukeBox.PLAY(Game);
   		  timer.start();
   		  pause = false;
 		}
@@ -312,6 +313,7 @@ public class Game extends GraphicsPane implements ActionListener{
         if(key == KeyEvent.VK_ESCAPE) {
             pause = true;
             program.add(pauseButton);
+            JukeBox.STOP();
             JukeBox.PLAY(pauseGame);
             timer.stop();
         }
